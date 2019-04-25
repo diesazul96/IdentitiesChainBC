@@ -1,0 +1,50 @@
+<section class="hero is-medium is-info is-bold">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title is-1">
+        Name change dapp
+      </h1>
+      <h2 class="title">
+        Your Name is: <span class="is-medium has-underline">{{name}}</span>
+      </h2>
+    </div>
+  </div>
+</section>
+<br>
+<div class="container">
+  <h1 class="title">Change Name</h1>
+  <h1 class="title is-4 is-info help">{{status}}</h1>
+
+  <form #nameForm="ngForm">
+    <div class="field">
+      <label class="label">New Name</label>
+      <p class="control">
+        <input
+          [(ngModel)]="NewName"
+          class="input"
+          type="text"
+          placeholder="New Name"
+          name="NewName"
+          required
+          #nameChangeModel="ngModel">
+      </p>
+      <div *ngIf="nameChangeModel.errors && (nameChangeModel.dirty || nameChangeModel.touched)"
+           class="help is-danger">
+          <p [hidden]="!nameChangeModel.errors.required">
+            This field is required
+          </p>
+      </div>
+    </div>
+    
+    <div class="field is-grouped">
+      <p class="control">
+        <button
+          [disabled]="!nameForm.valid"
+          (click)="changeName()"
+          class="button is-primary">
+          Send
+        </button>
+      </p>
+    </div>
+  </form>
+</div>
