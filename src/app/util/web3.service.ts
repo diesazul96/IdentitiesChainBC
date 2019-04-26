@@ -16,15 +16,21 @@ export class Web3Service {
   public accountsObservable = new Subject<string[]>();
 
   constructor() {
+    console.log("Constructor Web3");
     window.addEventListener('load', (event) => {
       this.bootstrapWeb3();
     });
+  }
+
+  public getAccounts(): string[]{
+    return this.accounts;
   }
 
   public bootstrapWeb3() {
     // Checking if Web3 has been injected by the browser (Mist/MetaMask)
     if (typeof window.web3 !== 'undefined') {
       // Use Mist/MetaMask's provider
+        console.log("Provider Metamask");
       this.web3 = new Web3(window.web3.currentProvider);
     } else {
       console.log('No web3? You should consider trying MetaMask!');

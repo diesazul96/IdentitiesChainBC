@@ -6,9 +6,9 @@ import { Web3Service } from '../util/web3.service';
 export interface documento {
   key: string,
   nombre: string,
-  fecha: Date,
-  gs: string,
-  rh: string,
+  fecha: string,
+  //gs: string,
+  //rh: string,
   departamento: string,
   ciudad: string,
   sexo: string
@@ -53,12 +53,12 @@ export class VisualizadorDocumento{
       console.log('Account', this.model.account);
       const ICBalance = await deployedIC.getCedula.call(res => {
         this.doc.nombre = res[0];
-        this.doc.gs = res[1];
-        this.doc.rh = res[2];
-        this.doc.fecha = res[3];
-        this.doc.sexo = res[4];
-        this.doc.ciudad = res[5];
-        this.doc.dep = res[6];
+        //this.doc.gs = res[1];
+        //this.doc.rh = res[2];
+        this.doc.fecha = res[1];
+        this.doc.sexo = res[2];
+        this.doc.ciudad = res[3];
+        this.doc.dep = res[4];
       });
     } catch (e) {
       console.log(e);

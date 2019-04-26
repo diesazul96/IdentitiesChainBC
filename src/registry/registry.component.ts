@@ -37,8 +37,11 @@ export class RegistryComponent implements OnInit {
   ngOnInit(): void {
     console.log('OnInit: ' + this.web3Service);
     console.log(this);
-    this.watchAccount();
-	
+
+    this.accounts = this.web3Service.getAccounts();
+    console.log("--------------------"+this.accounts);
+    this.model.account = this.accounts[0];
+    
     this.web3Service.artifactsToContract(identitieschain_artifacts)
       .then((ICAbstraction) => {
         this.IC = ICAbstraction;
@@ -57,6 +60,8 @@ export class RegistryComponent implements OnInit {
   }
 
   async addUser(user: string, pass: string, pass2: string, content){
+
+    console.log("CUENTA HPTA! "+this.accounts);
     let us = new User();
     us.user = user;
     if(pass == pass2){
@@ -90,6 +95,7 @@ export class RegistryComponent implements OnInit {
   watchAccount() {
     this.web3Service.accountsObservable.subscribe((accounts) => {
       this.accounts = accounts;
+      console.log("--------------------"+accounts);
       this.model.account = accounts[0];
     });
   }

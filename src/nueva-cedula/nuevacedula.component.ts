@@ -33,13 +33,12 @@ export class CedulaComponent implements OnInit{
   ngOnInit():void {
     console.log('OnInit: ' + this.web3Service);
     console.log(this);
-    this.watchAccount();
 	
     this.web3Service.artifactsToContract(identitieschain_artifacts)
       .then((ICAbstraction) => {
         this.IC = ICAbstraction;
         this.IC.deployed().then(deployed => {
-          console.log(deployed);
+          console.log("IC instanciado: "+deployed);
         });
       });
   }
@@ -52,11 +51,16 @@ export class CedulaComponent implements OnInit{
     }
   }
 
-  async createCedula(nombre: string, fecha: Date, gs: string, rh: string, depto: string,ciudad: string){
+  async createCedula(nombre: string, fecha: string, depto: string,ciudad: string){
 
+    this.accounts = this.web3Service.getAccounts();
+    console.log("--------------------"+this.accounts);
+    this.model.account = this.accounts[0];
+
+    console.log("fecha:" + fecha+ " cuenta: "+this.model.account);
     try {
       const deployedIC = await this.IC.deployed();
-      const iCTransaction = await deployedIC.nuevaCedula.sendTransaction(nombre, gs, rh, fecha, this.genre, ciudad, depto, {from: this.model.account});
+      const iCTransaction = await deployedIC.nuevaCedula.sendTransaction(nombre, fecha, this.genre, ciudad, depto, {from: this.model.account});
      
      
       if (!iCTransaction) {

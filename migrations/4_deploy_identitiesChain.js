@@ -1,4 +1,4 @@
 var IdentitiesChain = artifacts.require("./IdentitiesChain.sol");
 module.exports = function(deployer) {
-  deployer.deploy(NameChange);
+  deployer.deploy(IdentitiesChain);
 };

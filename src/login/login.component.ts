@@ -53,6 +53,7 @@ export class LoginComponent implements OnInit {
         console.log('Transaction failed!');
       } else {
         console.log('Transaction complete!');
+        this.router.navigateByUrl(`${'../menu'}`);
       }
     } catch (e) {
       console.log(e);
