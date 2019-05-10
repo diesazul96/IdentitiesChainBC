@@ -14,6 +14,18 @@ contract IdentitiesChain {
         string sexo;
         string ciudad;
         string departamento;
+        string url;
+    }
+
+    struct Documento{
+        string nombre;
+        string url;
+    }
+
+    struct Permiso{
+        address duenio;
+        address destinatario;
+        string[] docs; 
     }
     
     address usuarioActivo;
@@ -29,29 +41,35 @@ contract IdentitiesChain {
    
    function nuevoUsuario(string memory _usuario, string memory _clave) public {
 
-        Usuario memory user;
-        user = usuarios[msg.sender];
-        user.usuario = _usuario;
-        user.clave = _clave;
+        //Usuario memory user;
+        //user = usuarios[msg.sender];
+        usuarios[msg.sender].usuario = _usuario;
+        usuarios[msg.sender].clave = _clave;
     }
     
     function getUsuario() public view returns(string memory) {
         return usuarios[msg.sender].usuario;
     }
     
-    function nuevaCedula(string memory _nombre, string memory _fecha, string memory _sexo, string memory _ciudad, string memory _departamento) public {
+    function nuevaCedula(string memory _nombre, string memory _fecha, string memory _sexo, string memory _ciudad, string memory _departamento, string memory _url) public {
 
-        Cedula memory _cedula = usuarios[usuarioActivo].cedula;
-        _cedula.nombre = _nombre;
-        _cedula.fecha = _fecha;
-        _cedula.sexo = _sexo;
-        _cedula.ciudad = _ciudad;
-        _cedula.departamento = _departamento;
+        //Cedula memory _cedula = usuarios[usuarioActivo].cedula;
+        usuarios[usuarioActivo].cedula.nombre = _nombre;
+        usuarios[usuarioActivo].cedula.fecha = _fecha;
+        usuarios[usuarioActivo].cedula.sexo = _sexo;
+        usuarios[usuarioActivo].cedula.ciudad = _ciudad;
+        usuarios[usuarioActivo].cedula.departamento = _departamento;
+        usuarios[usuarioActivo].cedula.url = _url;
     }
     
-    function getCedula() public view returns(string memory, string memory, string memory, string memory, string memory, address){
-        Cedula memory _cedula = usuarios[usuarioActivo].cedula;
-        return (_cedula.nombre, _cedula.fecha, _cedula.sexo, _cedula.ciudad, _cedula.departamento, usuarioActivo);
+    function getCedula() public view returns(string memory, string memory, string memory, string memory, string memory, string memory, address){
+        //Cedula memory _cedula = usuarios[usuarioActivo].cedula;
+        return (usuarios[usuarioActivo].cedula.nombre, usuarios[usuarioActivo].cedula.fecha, usuarios[usuarioActivo].cedula.sexo,
+         usuarios[usuarioActivo].cedula.ciudad, usuarios[usuarioActivo].cedula.departamento, usuarios[usuarioActivo].cedula.url, usuarioActivo);
+    }
+
+    function compartir(address _destinatario) public {
+
     }
    
 }
