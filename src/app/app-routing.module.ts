@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'registry', component: RegistryComponent },
   {path : 'nueva-cedula/:key', component : CedulaComponent},
   {path: 'aniadirdocumento', component : AñadirDocumento},
-  {path: 'verdocumento/:key', component : VisualizadorDocumento},
+  {path: 'verdocumento', component : VisualizadorDocumento},
   {path: 'documento', component : DocumentoComponent}
 ];
 

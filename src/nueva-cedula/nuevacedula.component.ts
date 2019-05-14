@@ -60,7 +60,7 @@ export class CedulaComponent implements OnInit{
     console.log("fecha:" + fecha+ " cuenta: "+this.model.account);
     try {
       const deployedIC = await this.IC.deployed();
-      const iCTransaction = await deployedIC.nuevaCedula.sendTransaction(nombre, fecha, this.genre, ciudad, depto, {from: this.model.account});
+      const iCTransaction = await deployedIC.nuevaCedula.sendTransaction(nombre, fecha, this.genre, ciudad, depto, "www.hola.com", {from: this.model.account});
      
      
       if (!iCTransaction) {
@@ -85,9 +85,9 @@ export class CedulaComponent implements OnInit{
   }
 
   redireccionar(key){
-    let route = this.router.config.find(r => r.path === 'nueva-cedula/:key');
+    let route = this.router.config.find(r => r.path === 'menu');
     route.data =  key;    // START: One way of using routerLink    
-    this.router.navigateByUrl(`${'nueva-cedula'}/${key}`);
+    this.router.navigateByUrl(`${'menu'}`);
   }
 
 }

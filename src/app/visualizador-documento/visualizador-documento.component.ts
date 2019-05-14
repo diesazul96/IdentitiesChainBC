@@ -23,7 +23,7 @@ const identitieschain_artifacts = require('../../../build/contracts/IdentitiesCh
     styleUrls: ['visualizador-documento.css']
 })
 
-export class VisualizadorDocumento{
+export class VisualizadorDocumento implements OnInit {
 
   IC: any;
   accounts: string[];
@@ -35,18 +35,43 @@ export class VisualizadorDocumento{
     account: ''
   };
   
-  private key:string;
+  //private key:string;
   doc: any = {};
   documentos: documento[];
 
   constructor(private web3Service: Web3Service, private route: ActivatedRoute) {
     console.log(web3Service);
-    route.params.subscribe(params => {this.key = params['key'];});
+    //route.params.subscribe(params => {this.key = params['key'];});
     console.log("const");
-    this.getDoc();
+  }
+
+  ngOnInit(): void {
+    console.log('OnInit: ' + this.web3Service);
+    console.log(this);
+
+    this.accounts = this.web3Service.getAccounts();
+    console.log("--------------------"+this.accounts);
+    this.model.account = this.accounts[0];
+    
+    this.web3Service.artifactsToContract(identitieschain_artifacts)
+      .then((ICAbstraction) => {
+        if(ICAbstraction != null){
+          console.log("Todo bien: "+ICAbstraction);
+          this.IC = ICAbstraction;
+          this.IC.deployed().then(deployed => {
+            console.log(deployed);
+          });
+          console.log("Vamos al DOC");
+          this.getDoc();
+        } else{
+          console.log("ESTAMOS JODIDOS");
+        }
+      });
+    console.log("Terminando OnInit");
   }
   
   async getDoc(){
+    console.log("GET DOC");
     try {
       const deployedIC = await this.IC.deployed();
       console.log(deployedIC);

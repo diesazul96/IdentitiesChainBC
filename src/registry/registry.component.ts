@@ -60,7 +60,7 @@ export class RegistryComponent implements OnInit {
   }
 
   async addUser(user: string, pass: string, pass2: string, content){
-
+    var usuario ="";
     console.log("CUENTA HPTA! "+this.accounts);
     let us = new User();
     us.user = user;
@@ -75,13 +75,15 @@ export class RegistryComponent implements OnInit {
 
       try {
         const deployedIC = await this.IC.deployed();
+        console.log("Cuenta: ");
+        console.log(this.model.account);
         const iCTransaction = await deployedIC.nuevoUsuario.sendTransaction(this.userName, this.password, {from: this.model.account});
-       
        
         if (!iCTransaction) {
           console.log('Transaction failed!');
         } else {
           console.log('Transaction complete!');
+          console.log(iCTransaction);
         }
       } catch (e) {
         console.log(e);

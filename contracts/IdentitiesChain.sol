@@ -1,4 +1,5 @@
 pragma solidity ^0.5.0;
+pragma experimental ABIEncoderV2;
 
 contract IdentitiesChain {
     
@@ -6,6 +7,7 @@ contract IdentitiesChain {
         string usuario;
         string clave;
         Cedula cedula;
+        Permiso[] permisos;
     }
     
     struct Cedula{
@@ -24,12 +26,12 @@ contract IdentitiesChain {
 
     struct Permiso{
         address duenio;
-        address destinatario;
         string[] docs; 
     }
     
     address usuarioActivo;
     mapping(address => Usuario) usuarios;
+    mapping(string => Permiso) permisos;
    
    constructor() public {}
    
@@ -39,12 +41,14 @@ contract IdentitiesChain {
        return true;
    }
    
-   function nuevoUsuario(string memory _usuario, string memory _clave) public {
+   function nuevoUsuario(string memory _usuario, string memory _clave) public returns(address){
 
         //Usuario memory user;
         //user = usuarios[msg.sender];
         usuarios[msg.sender].usuario = _usuario;
         usuarios[msg.sender].clave = _clave;
+        usuarioActivo = msg.sender;
+        return usuarioActivo;
     }
     
     function getUsuario() public view returns(string memory) {
@@ -68,8 +72,10 @@ contract IdentitiesChain {
          usuarios[usuarioActivo].cedula.ciudad, usuarios[usuarioActivo].cedula.departamento, usuarios[usuarioActivo].cedula.url, usuarioActivo);
     }
 
-    function compartir(address _destinatario) public {
-
+    function compartir(address _destinatario, string[] memory _docs, string memory idPermiso) public {
+        permisos[idPermiso].duenio = msg.sender;
+        permisos[idPermiso].docs = _docs;
+        usuarios[_destinatario].permisos.push(permisos[idPermiso]);
     }
    
 }
