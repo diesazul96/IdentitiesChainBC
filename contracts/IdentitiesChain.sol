@@ -41,13 +41,13 @@ contract IdentitiesChain {
        return true;
    }
    
-   function nuevoUsuario(string memory _usuario, string memory _clave) public returns(address){
+   function nuevoUsuario(string memory _usuario, string memory _clave, address sender) public returns(address){
 
         //Usuario memory user;
         //user = usuarios[msg.sender];
-        usuarios[msg.sender].usuario = _usuario;
-        usuarios[msg.sender].clave = _clave;
-        usuarioActivo = msg.sender;
+        usuarios[sender].usuario = _usuario;
+        usuarios[sender].clave = _clave;
+        usuarioActivo = sender;
         return usuarioActivo;
     }
     

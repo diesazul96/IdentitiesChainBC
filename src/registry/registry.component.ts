@@ -77,7 +77,7 @@ export class RegistryComponent implements OnInit {
         const deployedIC = await this.IC.deployed();
         console.log("Cuenta: ");
         console.log(this.model.account);
-        const iCTransaction = await deployedIC.nuevoUsuario.sendTransaction(this.userName, this.password, {from: this.model.account});
+        const iCTransaction = await deployedIC.nuevoUsuario.sendTransaction(this.userName, this.password, this.model.account, {from: this.model.account});
        
         if (!iCTransaction) {
           console.log('Transaction failed!');
