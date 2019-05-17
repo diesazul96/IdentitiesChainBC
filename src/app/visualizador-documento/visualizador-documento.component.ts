@@ -38,11 +38,12 @@ export class VisualizadorDocumento implements OnInit {
   //private key:string;
   doc: any = {};
   documentos: documento[];
-
+  adr:any;
   constructor(private web3Service: Web3Service, private route: ActivatedRoute) {
     console.log(web3Service);
     //route.params.subscribe(params => {this.key = params['key'];});
     console.log("const");
+    route.params.subscribe(params => {this.adr = params['adr'];});
   }
 
   ngOnInit(): void {
@@ -60,9 +61,9 @@ export class VisualizadorDocumento implements OnInit {
           this.IC = ICAbstraction;
           this.IC.deployed().then(deployed => {
             console.log(deployed);
+            this.getDoc()
           });
           console.log("Vamos al DOC");
-          this.getDoc();
         } else{
           console.log("ESTAMOS JODIDOS");
         }
@@ -71,20 +72,35 @@ export class VisualizadorDocumento implements OnInit {
   }
   
   async getDoc(){
+    
     console.log("GET DOC");
     try {
       const deployedIC = await this.IC.deployed();
       console.log(deployedIC);
       console.log('Account', this.model.account);
-      const ICBalance = await deployedIC.getCedula.call(res => {
-        this.doc.nombre = res[0];
+      var event = deployedIC.Cedulita(function(error, result) {
+        if (!error)
+            console.log("evento!!!!");
+            console.log(result);
+    });
+      const ICBalance = await deployedIC.getCedula.sendTransaction(this.adr, {from: this.model.account}).then(res => {
+        console.log("RES:");
+        console.log(res);
+      });
+      if(!ICBalance){
+        console.log("REtorno: ");
+        console.log(ICBalance);
+      } else {
+        console.log("Se jodiop...");
+        console.log(ICBalance);
+      }
+        this.doc.nombre = ICBalance[0];
         //this.doc.gs = res[1];
         //this.doc.rh = res[2];
-        this.doc.fecha = res[1];
-        this.doc.sexo = res[2];
-        this.doc.ciudad = res[3];
-        this.doc.dep = res[4];
-      });
+        this.doc.fecha = ICBalance[1];
+        this.doc.sexo = ICBalance[2];
+        this.doc.ciudad = ICBalance[3];
+        this.doc.dep = ICBalance[4];
     } catch (e) {
       console.log(e);
       console.log('Error getting balance; see log.');

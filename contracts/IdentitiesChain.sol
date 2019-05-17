@@ -45,9 +45,9 @@ contract IdentitiesChain {
 
         //Usuario memory user;
         //user = usuarios[msg.sender];
-        usuarios[sender].usuario = _usuario;
-        usuarios[sender].clave = _clave;
-        usuarioActivo = sender;
+        usuarios[msg.sender].usuario = _usuario;
+        usuarios[msg.sender].clave = _clave;
+        usuarioActivo = msg.sender;
         return usuarioActivo;
     }
     
@@ -65,9 +65,21 @@ contract IdentitiesChain {
         usuarios[usuarioActivo].cedula.departamento = _departamento;
         usuarios[usuarioActivo].cedula.url = _url;
     }
+
+    event Cedulita(
+        string nombre,
+        string fecha,
+        string sexo,
+        string ciudad,
+        string departamento,
+        string url,
+        address adr
+    );
     
-    function getCedula() public view returns(string memory, string memory, string memory, string memory, string memory, string memory, address){
+    function getCedula(string memory dir) public returns(string memory, string memory, string memory, string memory, string memory, string memory, address){
         //Cedula memory _cedula = usuarios[usuarioActivo].cedula;
+        emit Cedulita(usuarios[usuarioActivo].cedula.nombre, usuarios[usuarioActivo].cedula.fecha, usuarios[usuarioActivo].cedula.sexo,
+         usuarios[usuarioActivo].cedula.ciudad, usuarios[usuarioActivo].cedula.departamento, usuarios[usuarioActivo].cedula.url, usuarioActivo);
         return (usuarios[usuarioActivo].cedula.nombre, usuarios[usuarioActivo].cedula.fecha, usuarios[usuarioActivo].cedula.sexo,
          usuarios[usuarioActivo].cedula.ciudad, usuarios[usuarioActivo].cedula.departamento, usuarios[usuarioActivo].cedula.url, usuarioActivo);
     }

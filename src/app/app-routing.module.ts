@@ -12,12 +12,12 @@ import { DocumentoComponent } from '../documento/documento.component';
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'menu', component: MenuComponent },
+  { path: 'menu/:adr', component: MenuComponent },
   { path: 'registry', component: RegistryComponent },
-  {path : 'nueva-cedula/:key', component : CedulaComponent},
+  {path : 'nueva-cedula/:key/:adr', component : CedulaComponent},
   {path: 'aniadirdocumento', component : AñadirDocumento},
-  {path: 'verdocumento', component : VisualizadorDocumento},
-  {path: 'documento', component : DocumentoComponent}
+  {path: 'verdocumento/:adr', component : VisualizadorDocumento},
+  {path: 'documento/:adr', component : DocumentoComponent}
 ];
 
 @NgModule({

@@ -24,10 +24,11 @@ export class CedulaComponent implements OnInit{
 
   private genre:string;
   private key:string;
-  
+  adr:any;
   constructor(private web3Service: Web3Service,private route: ActivatedRoute, private router: Router) {
     console.log(web3Service);
     route.params.subscribe(params => {this.key = params['key'];});
+    route.params.subscribe(params => {this.adr = params['adr'];});
   }
 
   ngOnInit():void {
@@ -85,9 +86,9 @@ export class CedulaComponent implements OnInit{
   }
 
   redireccionar(key){
-    let route = this.router.config.find(r => r.path === 'menu');
-    route.data =  key;    // START: One way of using routerLink    
-    this.router.navigateByUrl(`${'menu'}`);
+    //let route = this.router.config.find(r => r.path === 'menu');
+    //route.data =  key;    // START: One way of using routerLink    
+    this.router.navigateByUrl(`${'menu'}/${this.adr}`);
   }
 
 }

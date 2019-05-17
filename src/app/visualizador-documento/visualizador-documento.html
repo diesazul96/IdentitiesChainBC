@@ -13,6 +13,13 @@
 
 <img src="../../assets/profile-img.png" class="profile-img">
 
+<div class="textField">
+    <input #dir type="text" class="textField">
+</div>
+<div class="createButton">
+    <a (click)="getDoc(dir.value)" >Consultar</a>
+</div>
+
 <h2 class="id-text">{{doc.key}}</h2>
 <h1 class="id-text" style=" text-transform: capitalize;">{{doc.nombre}}</h1>
 <hr>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { User } from './user';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Web3Service } from '../app/util/web3.service';
+import { Router } from '@angular/router';
 
 declare let require: any;
 const identitieschain_artifacts = require('../../build/contracts/IdentitiesChain.json');
@@ -30,7 +31,7 @@ export class RegistryComponent implements OnInit {
   @Input() password: string;
   @Input() password2: string;
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private web3Service: Web3Service) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private web3Service: Web3Service, private router: Router) {
     console.log('Constructor: ' + web3Service);
   }
 
@@ -83,7 +84,9 @@ export class RegistryComponent implements OnInit {
           console.log('Transaction failed!');
         } else {
           console.log('Transaction complete!');
+          this.router.navigateByUrl(`${'menu'}/${iCTransaction.tx}`);
           console.log(iCTransaction);
+
         }
       } catch (e) {
         console.log(e);

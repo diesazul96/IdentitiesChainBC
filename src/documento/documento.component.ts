@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'documento',
@@ -7,8 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./documento.component.css']
 })
 export class DocumentoComponent implements OnInit{
-
-  constructor(private router: Router) { }
+  adr:any;
+  constructor(private router: Router, private route: ActivatedRoute) { 
+    route.params.subscribe(params => {this.adr = params['adr'];});
+  }
 
   ngOnInit():void {
   }
@@ -17,11 +19,11 @@ export class DocumentoComponent implements OnInit{
     console.log("aeafasfasfasf");
     console.log(rowVal);
 
-    let route = this.router.config.find(r => r.path === 'nueva-cedula/:key');
-    route.data =  rowVal;
+    //let route = this.router.config.find(r => r.path === 'nueva-cedula/:key');
+    //route.data =  rowVal;
 
   // START: One way of using routerLink
-   this.router.navigateByUrl(`${'nueva-cedula'}/${rowVal}`);
+   this.router.navigateByUrl(`${'nueva-cedula'}/${rowVal}/${this.adr}`);
    // Uncomment this line and check the result
   // END: One way of using routerLink */
 

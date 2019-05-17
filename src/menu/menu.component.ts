@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -8,8 +9,11 @@ import { Component, OnInit } from '@angular/core';
 export class MenuComponent implements OnInit {
 
   public isCollapsed = true;
+  adr:any;
 
-  constructor() {  }
+  constructor(private route: ActivatedRoute,private router: Router) { 
+    route.params.subscribe(params => {this.adr = params['adr'];});
+   }
 
   ngOnInit() {}
 }
