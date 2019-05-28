@@ -7,6 +7,7 @@ contract IdentitiesChain {
         string usuario;
         string clave;
         Cedula cedula;
+        Documento[] docs;
         Permiso[] permisos;
     }
     
@@ -22,16 +23,18 @@ contract IdentitiesChain {
     struct Documento{
         string nombre;
         string url;
+        string hash;
     }
 
     struct Permiso{
         address duenio;
-        string[] docs; 
+        Documento[] docs; 
     }
     
     address usuarioActivo;
     mapping(address => Usuario) usuarios;
     mapping(string => Permiso) permisos;
+    mapping(string => Documento) documentos;
    
    constructor() public {}
    
@@ -81,11 +84,37 @@ contract IdentitiesChain {
         emit Cedulita(usuarios[usuarioActivo].cedula.nombre, usuarios[usuarioActivo].cedula.fecha, usuarios[usuarioActivo].cedula.sexo,
          usuarios[usuarioActivo].cedula.ciudad, usuarios[usuarioActivo].cedula.departamento, usuarios[usuarioActivo].cedula.url, usuarioActivo);
     }
+    
+    function nuevoDocumento(string memory _nombre, string memory _url, string memory _hash, string memory _idDoc) public {
+        documentos[_idDoc].nombre = _nombre;
+        documentos[_idDoc].url = _url;
+        documentos[_idDoc].hash = _hash;
+        usuarios[usuarioActivo].docs.push(documentos[_idDoc]);
+    }
+    
+    event Documentos(
+        Documento[] docs
+    );
+    
+    function getDocumentos() public returns(Documento[] memory misDocs){
+        emit Documentos(usuarios[usuarioActivo].docs);
+    }
 
-    function compartir(address _destinatario, string[] memory _docs, string memory idPermiso) public {
+    function compartir(address _destinatario, string[] memory _idDocs, string memory idPermiso) public {
         permisos[idPermiso].duenio = msg.sender;
-        permisos[idPermiso].docs = _docs;
+        uint tam = _idDocs.length;
+        for(uint i=0; i<tam; i++){
+            permisos[idPermiso].docs.push(documentos[_idDocs[i]]);   
+        }
         usuarios[_destinatario].permisos.push(permisos[idPermiso]);
+    }
+    
+    event Permisos(
+        Permiso[] perms    
+    );
+    
+    function getPermisos() public returns(Permiso[] memory p){
+        emit Permisos(usuarios[usuarioActivo].permisos);
     }
    
 }
