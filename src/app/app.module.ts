@@ -24,11 +24,12 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { RegistryComponent } from '../registry/registry.component';
 import { AñadirDocumento } from './añadir-documento';
+import { VerDocsComponent } from './ver-docs/ver-docs.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NameChangeComponent, VisualizadorDocumento, AñadirDocumento, DocumentoComponent, CedulaComponent, routingComponents
+    NameChangeComponent, VisualizadorDocumento, AñadirDocumento, DocumentoComponent, CedulaComponent, routingComponents, VerDocsComponent
   ],
   imports: [
     BrowserAnimationsModule,

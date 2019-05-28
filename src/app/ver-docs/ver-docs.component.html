@@ -1,0 +1,15 @@
+<div *ngFor="let doc of docs">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{doc.nombre.value}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="{{doc.url.value}}" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <h3>Hash</h3>
+      <p>
+        {{doc.hash.value}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
