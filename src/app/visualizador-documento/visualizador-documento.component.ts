@@ -78,33 +78,33 @@ export class VisualizadorDocumento implements OnInit {
       const deployedIC = await this.IC.deployed();
       console.log(deployedIC);
       console.log('Account', this.model.account);
-      var event = deployedIC.Cedulita(function(error, result) {
+      var cedula :any={};
+      var done: boolean =false;
+      var event = deployedIC.Cedulita((error, result)=> {
         if (!error)
             console.log("evento!!!!");
             console.log(result);
-    });
-      const ICBalance = await deployedIC.getCedula.sendTransaction(this.adr, {from: this.model.account}).then(res => {
-        console.log("RES:");
-        console.log(res);
+            
+            this.doc.nombre = result.returnValues[0];
+            this.doc.fecha = result.returnValues[1];
+            this.doc.sexo = result.returnValues[2];
+            this.doc.ciudad = result.returnValues[3];
+            this.doc.dep = result.returnValues[4];
+            
+            console.log(this.doc.nombre);
+            console.log(this.doc.fecha);
+            console.log(this.doc.sexo);
+            console.log(this.doc.ciudad);
+            console.log(this.doc.dep);
       });
-      if(!ICBalance){
-        console.log("REtorno: ");
-        console.log(ICBalance);
-      } else {
-        console.log("Se jodiop...");
-        console.log(ICBalance);
-      }
-        this.doc.nombre = ICBalance[0];
-        //this.doc.gs = res[1];
-        //this.doc.rh = res[2];
-        this.doc.fecha = ICBalance[1];
-        this.doc.sexo = ICBalance[2];
-        this.doc.ciudad = ICBalance[3];
-        this.doc.dep = ICBalance[4];
+      const ICBalance = await deployedIC.getCedula.sendTransaction(this.adr, {from: this.model.account});
     } catch (e) {
       console.log(e);
       console.log('Error getting balance; see log.');
     }
-    console.log(this.doc);
+    /*this.doc.fecha = event.returnValues[1];
+    this.doc.sexo = event.returnValues[2];
+    this.doc.ciudad = event.returnValues[3];
+    this.doc.dep = event.returnValues[4];*/
   }
 }
