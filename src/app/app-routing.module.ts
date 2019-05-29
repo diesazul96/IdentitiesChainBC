@@ -1,3 +1,4 @@
+import { VerDocsComponent } from './ver-docs/ver-docs.component';
 import { VisualizadorDocumento } from './visualizador-documento/visualizador-documento.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,6 +9,7 @@ import { MenuComponent } from '../menu/menu.component';
 import { RegistryComponent } from '../registry/registry.component';
 import {CedulaComponent} from '../nueva-cedula/nuevacedula.component';
 import { DocumentoComponent } from '../documento/documento.component';
+import { NuevoDocComponent } from '../nuevo-doc/nuevodoc.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -17,7 +19,9 @@ const routes: Routes = [
   {path : 'nueva-cedula/:key/:adr', component : CedulaComponent},
   {path: 'aniadirdocumento', component : AñadirDocumento},
   {path: 'verdocumento/:adr', component : VisualizadorDocumento},
-  {path: 'documento/:adr', component : DocumentoComponent}
+  {path: 'documento/:adr', component : DocumentoComponent},
+  {path: 'nuevodoc/:adr', component : NuevoDocComponent},
+  {path: 'verdoc/:adr', component : VerDocsComponent}
 ];
 
 @NgModule({

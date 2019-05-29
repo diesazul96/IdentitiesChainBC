@@ -93,11 +93,13 @@ contract IdentitiesChain {
     }
     
     event Documentos(
-        Documento[] docs
+        Documento docs
     );
     
-    function getDocumentos() public returns(Documento[] memory misDocs){
-        emit Documentos(usuarios[usuarioActivo].docs);
+    function getDocumentos() public {
+        for(uint i=0; i<usuarios[usuarioActivo].docs.length; i++){
+            emit Documentos(usuarios[usuarioActivo].docs[i]);
+        }
     }
 
     function compartir(address _destinatario, string[] memory _idDocs, string memory idPermiso) public {

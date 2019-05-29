@@ -2,6 +2,12 @@ import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Web3Service } from '../util/web3.service';
 
+export interface documento {
+  nombre: string,
+  url: string,
+  hash: string
+}
+
 declare let require: any;
 const identitieschain_artifacts = require('../../../build/contracts/IdentitiesChain.json');
 
@@ -23,6 +29,8 @@ export class VerDocsComponent implements OnInit {
   };
 
   adr:any;
+  doc: any = {};
+  documentos: documento[] = [];
 
   constructor(private web3Service: Web3Service, private route: ActivatedRoute) {
     console.log(web3Service);
@@ -69,18 +77,28 @@ export class VerDocsComponent implements OnInit {
         if (!error)
             console.log("evento!!!!");
             console.log(result);
-            
-            /*this.doc.nombre = result.returnValues[0];
-            this.doc.fecha = result.returnValues[1];
-            this.doc.sexo = result.returnValues[2];
-            this.doc.ciudad = result.returnValues[3];
-            this.doc.dep = result.returnValues[4];
+            var data: any = result.returnValues[0];
+            console.log("DATA: ");
+            //console.log(data);
+            console.log(data[0]);
+            //console.log(data.nombre);
+            console.log(data[1]);
+            //console.log(data.url);
+            console.log(data[2]);
+            //console.log(data.hash);
+
+            this.doc.nombre = data[0];
+            this.doc.url = data[1];
+            this.doc.hash = data[2];
             
             console.log(this.doc.nombre);
-            console.log(this.doc.fecha);
-            console.log(this.doc.sexo);
-            console.log(this.doc.ciudad);
-            console.log(this.doc.dep);*/
+            console.log(this.doc.url);
+            console.log(this.doc.hash);
+
+            this.documentos.push(this.doc);
+            console.log(this.documentos);
+
+            this.doc = {};
       });
 
       const ICBalance = await deployedIC.getDocumentos.sendTransaction({from: this.model.account});

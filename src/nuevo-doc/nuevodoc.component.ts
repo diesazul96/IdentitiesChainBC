@@ -10,7 +10,7 @@ const identitieschain_artifacts = require('../../build/contracts/IdentitiesChain
   templateUrl: './nuevodoc.component.html',
   styleUrls: ['./nuevodoc.component.css']
 })
-export class CedulaComponent implements OnInit{
+export class NuevoDocComponent implements OnInit{
 
   IC: any;
   accounts: string[];
@@ -27,7 +27,7 @@ export class CedulaComponent implements OnInit{
   adr:any;
   constructor(private web3Service: Web3Service,private route: ActivatedRoute, private router: Router) {
     console.log(web3Service);
-    route.params.subscribe(params => {this.key = params['key'];});
+    //route.params.subscribe(params => {this.key = params['key'];});
     route.params.subscribe(params => {this.adr = params['adr'];});
   }
 

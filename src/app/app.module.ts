@@ -1,3 +1,4 @@
+import { NuevoDocComponent } from './../nuevo-doc/nuevodoc.component';
 import { CedulaComponent } from './../nueva-cedula/nuevacedula.component';
 import { DocumentoComponent } from './../documento/documento.component';
 import { VisualizadorDocumento } from './visualizador-documento/visualizador-documento.component';
@@ -29,7 +30,8 @@ import { VerDocsComponent } from './ver-docs/ver-docs.component';
 @NgModule({
   declarations: [
     AppComponent,
-    NameChangeComponent, VisualizadorDocumento, AñadirDocumento, DocumentoComponent, CedulaComponent, routingComponents, VerDocsComponent
+    NameChangeComponent, VisualizadorDocumento, AñadirDocumento, DocumentoComponent, CedulaComponent, routingComponents, VerDocsComponent, 
+    NuevoDocComponent
   ],
   imports: [
     BrowserAnimationsModule,

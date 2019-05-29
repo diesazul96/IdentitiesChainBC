@@ -1,14 +1,14 @@
-<div *ngFor="let doc of docs">
+<div *ngFor="let doc of documentos">
   <mat-card class="example-card">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{doc.nombre.value}}</mat-card-title>
+      <mat-card-title>{{doc.nombre}}</mat-card-title>
     </mat-card-header>
-    <img mat-card-image src="{{doc.url.value}}" alt="Photo of a Shiba Inu">
+    <img mat-card-image src="{{doc.url}}" alt="Photo of a Shiba Inu">
     <mat-card-content>
       <h3>Hash</h3>
       <p>
-        {{doc.hash.value}}
+        {{doc.hash}}
       </p>
     </mat-card-content>
   </mat-card>
